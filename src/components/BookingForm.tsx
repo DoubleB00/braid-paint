@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Calendar, Mail, MessageSquare, Phone, Sparkles, User, CheckCircle } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 export default function BookingForm() {
   const [formData, setFormData] = useState({
@@ -21,18 +20,9 @@ export default function BookingForm() {
     setSubmitStatus('idle');
 
     try {
-      const { error } = await supabase.from('booking_inquiries').insert([
-        {
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          service_type: formData.serviceType,
-          event_date: formData.eventDate || null,
-          message: formData.message
-        }
-      ]);
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      if (error) throw error;
+      console.log('Form submission:', formData);
 
       setSubmitStatus('success');
       setFormData({
